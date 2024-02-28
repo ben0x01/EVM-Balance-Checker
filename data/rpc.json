@@ -1,0 +1,42 @@
+{
+	"ethereum": {
+		"rpc": [
+		"https://rpc.ankr.com/eth",
+		"https://1.rpc.thirdweb.com"
+		],
+		"explorer": "https://etherscan.io/tx/",
+		"token": "ETH"
+	},
+	"arbitrum": {
+		"rpc": [
+		"https://rpc.ankr.com/arbitrum",
+		"https://42161.rpc.thirdweb.com"
+		],
+		"explorer": "https://arbiscan.io/tx/",
+		"token": "ETH"
+	},
+	"optimism": {
+		"rpc": [
+		"https://rpc.ankr.com/optimism",
+		"https://10.rpc.thirdweb.com"
+		],
+		"explorer": "https://optimistic.etherscan.io/tx/",
+		"token": "ETH"
+	},
+	"scroll": {
+		"rpc": [
+		"https://rpc.ankr.com/scroll",
+		"https://534352.rpc.thirdweb.com"
+		],
+		"explorer": "https://scrollscan.com/tx/",
+		"token": "ETH"
+	},
+	"zksync": {
+		"rpc": [
+		"https://rpc.ankr.com/zksync_era",
+		"https://324.rpc.thirdweb.com"
+		],
+		"explorer": "https://explorer.zksync.io/tx/",
+		"token": "ETH"
+	}
+}
