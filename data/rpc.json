@@ -38,5 +38,13 @@
 		],
 		"explorer": "https://explorer.zksync.io/tx/",
 		"token": "ETH"
+	},
+	"base": {
+		"rpc": [
+		"https://rpc.ankr.com/base",
+		"https://8453.rpc.thirdweb.com"
+		],
+		"explorer": "https://basescan.org/tx/",
+		"token": "ETH"
 	}
 }

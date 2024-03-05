@@ -19,8 +19,9 @@ def set_balances(worksheet, cell_number: int, balances: dict):
     worksheet[f'D{cell_number}'] = balances['arbitrum']
     worksheet[f'E{cell_number}'] = balances['optimism']
     worksheet[f'F{cell_number}'] = balances['scroll']
+    worksheet[f'G{cell_number}'] = balances['base']
     
-    worksheet[f'G{cell_number}'] = sum(balances.values())
+    worksheet[f'H{cell_number}'] = sum(balances.values())
 
 def setup_balances_to_write(all_balances: list):
     wb = load_workbook('wallets.xlsx')

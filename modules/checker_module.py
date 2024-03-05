@@ -12,7 +12,7 @@ from settings import DECIMALS, PROXY
 
 class BalanceChecker:
     def __init__(self, address: str):
-        self.chains = ['ethereum', 'zksync', 'arbitrum', 'optimism', 'scroll']
+        self.chains = ['ethereum', 'zksync', 'arbitrum', 'optimism', 'scroll', 'base']
         self.address = address
     
     async def run_checker(self):
