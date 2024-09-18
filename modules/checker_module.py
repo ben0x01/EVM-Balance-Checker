@@ -6,7 +6,7 @@ import random
 from concurrent.futures import ThreadPoolExecutor
 
 from utils.config import RPC
-from settings import DECIMALS, PROXY
+from settings import DECIMALS
 
 
 class BalanceChecker:
@@ -37,8 +37,7 @@ class BalanceChecker:
             logger.error(f'{self.address} | Unexpected error: {e}')
     
     def check_balance(self, chain):
-        request_kwargs = {'proxy': f'http://{random.choice(PROXY)}'} if PROXY else {}
-        w3 = Web3(Web3.HTTPProvider(random.choice(RPC[chain]['rpc'])), request_kwargs=request_kwargs)
+        w3 = Web3(Web3.HTTPProvider(random.choice(RPC[chain]['rpc'])))
 
         try:
             wei_balance = w3.eth.get_balance(w3.to_checksum_address(self.address))
