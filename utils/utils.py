@@ -1,33 +1,18 @@
-from openpyxl import load_workbook
-
-
 def get_address_list() -> list:
-    wb = load_workbook('wallets.xlsx')
-    ws = wb['Wallets']
-    
-    wallet_list = []
-    
-    for i, wallet in enumerate(ws['A'], start=1):
-        if wallet.value and i != 1:
-            wallet_list.append(wallet.value)
-    
+    # Assuming the address list comes from a source, this function retrieves addresses
+    with open('wallets.txt', 'r') as f:
+        wallet_list = [line.strip() for line in f.readlines() if line.strip()]
+
     return wallet_list
 
-def set_balances(worksheet, cell_number: int, balances: dict):
-    worksheet[f'B{cell_number}'] = balances['ethereum']
-    worksheet[f'C{cell_number}'] = balances['zksync']
-    worksheet[f'D{cell_number}'] = balances['arbitrum']
-    worksheet[f'E{cell_number}'] = balances['optimism']
-    worksheet[f'F{cell_number}'] = balances['scroll']
-    worksheet[f'G{cell_number}'] = balances['base']
-    
-    worksheet[f'H{cell_number}'] = sum(balances.values())
+def format_balances(address: str, balances: dict) -> str:
+    # Format the balance data for a specific address
+    formatted_balances = ', '.join([f'{network}:{balance}' for network, balance in balances.items()])
+    return f'{address} - {formatted_balances}'
 
-def setup_balances_to_write(all_balances: list):
-    wb = load_workbook('wallets.xlsx')
-    worksheet = wb['Wallets']
-    
-    for i, balances in enumerate(all_balances, start=2):
-        set_balances(worksheet, i, balances)
-    
-    wb.save('wallets.xlsx')
+def setup_balances_to_write(all_balances: list, address_list: list):
+    # Write all balances to a txt file
+    with open('wallet_balances.txt', 'w') as f:
+        for address, balances in zip(address_list, all_balances):
+            formatted_line = format_balances(address, balances)
+            f.write(formatted_line + '\n')
