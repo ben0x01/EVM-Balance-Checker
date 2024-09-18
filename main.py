@@ -1,17 +1,17 @@
+from modules.checker_module import BalanceChecker 
+from utils.utils import get_address_list, setup_balances_to_write
+
 async def run_main():
-    address_list = get_address_list()  # Get the list of addresses to check
+    address_list = get_address_list() 
 
     tasks = []
 
-    # Loop through each address and create a BalanceChecker instance
     for address in address_list:
         balance_checker = BalanceChecker(address)
         tasks.append(asyncio.create_task(balance_checker.run_checker()))
 
-    # Await all balance checks
     balances = await asyncio.gather(*tasks)
 
-    # Setup the final results to be written (presumably to an Excel file)
     setup_balances_to_write(balances)
 
     logger.success(f'All balances have been successfully written to wallets.xlsx!')
