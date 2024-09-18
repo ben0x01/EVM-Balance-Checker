@@ -10,22 +10,20 @@ from settings import DECIMALS, PROXY
 
 
 class BalanceChecker:
-    def __init__(self, address: str):
+    def __init__(self, address: str, max_threads: int = None):
         self.chains = ['ethereum', 'zksync', 'arbitrum', 'optimism', 'scroll', 'base']
         self.address = address
-        self.executor = ThreadPoolExecutor(max_workers=len(self.chains))  # Define the thread pool
+        self.executor = ThreadPoolExecutor(max_workers=max_threads or len(self.chains)) 
 
     async def run_checker(self):
         try:
             loop = asyncio.get_event_loop()
 
-            # Run check_balance concurrently in threads
             tasks = [
                 loop.run_in_executor(self.executor, self.check_balance, chain)
                 for chain in self.chains
             ]
 
-            # Gather the results
             balances = await asyncio.gather(*tasks)
             
             sum_balances = sum(balances)
@@ -46,7 +44,7 @@ class BalanceChecker:
             wei_balance = w3.eth.get_balance(w3.to_checksum_address(self.address))
         except ClientResponseError:
             logger.error('Too many requests. Sleep 5 sec.')
-            asyncio.sleep(5)  # Although this is running in a thread, we still use asyncio.sleep
+            asyncio.sleep(5) 
             return self.check_balance(chain)
 
         eth_balance = round(w3.from_wei(wei_balance, 'ether'), DECIMALS)
